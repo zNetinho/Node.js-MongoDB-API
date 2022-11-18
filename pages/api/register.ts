@@ -3,7 +3,7 @@ import { conectMongoDB } from '../../middlewares/conectionDB'
 import { msgPadrao } from '../../types/msgPadrao';
 import { registerUser } from '../../types/registerRequest';
 import { userModel } from '../../models/userModels';
-import md5 from "md5";
+import md5 from 'md5';
 
 const createUser = 
   async (req: NextApiRequest, res:NextApiResponse<msgPadrao>) => {
@@ -22,6 +22,11 @@ const createUser =
         if(!user.password || user.password.length < 6) {
             return res.status(400).json({error: 'senha invalida'})
         }
+
+        const userEmailDuplicate = await userModel.find({email : user.email}) 
+            if(userEmailDuplicate && userEmailDuplicate.length > 0) {
+                return res.status(400).json({ error: 'email already exist'})
+            }
 
         const userToSave = {
             name: user.name,
