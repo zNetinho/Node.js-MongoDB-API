@@ -13,7 +13,7 @@ export const conectMongoDB = (handler: NextApiHandler) =>
         const { DB_CONEXAO_STRING } = process.env;
 
         if (!DB_CONEXAO_STRING) {
-            return res.status(500).json({ msg: "Erro na variavel de ambiente." })
+            return res.status(500).json({ msg: "Erro na variavel de ambiente DB." })
         }
 
         await mongoose.connect(DB_CONEXAO_STRING);

@@ -14,7 +14,7 @@ const login = async (
 
     const {MINHA_CHAVE_JWT} = process.env;
     if(!MINHA_CHAVE_JWT) {
-        return res.status(500).json({error: 'Error of variavel'})
+        return res.status(500).json({error: 'Error of variable'})
         }
 
     if (req.method === 'POST') {
