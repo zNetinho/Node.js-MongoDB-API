@@ -3,7 +3,7 @@ import { NextApiRequest, NextApiResponse, NextApiHandler } from 'next'
 import { msgPadrao } from '../types/msgPadrao'
 
 
-export const JWTvalidator = (handler: NextApiHandler) => {
+export const JWTvalidator = (handler: NextApiHandler) => 
     async (req: NextApiRequest, res: NextApiResponse<msgPadrao>) => {
 
         const { MINHA_CHAVE_JWT } = process.env;
@@ -16,7 +16,7 @@ export const JWTvalidator = (handler: NextApiHandler) => {
         }
 
         if (req.method !== 'OPTIONS') {
-            const authorization = req.headers['authorization']
+            const authorization = req.headers['authorization'];
             if (!authorization) {
                 return res.status(401).json({ error: 'Not possible validation token' })
             }
@@ -24,7 +24,7 @@ export const JWTvalidator = (handler: NextApiHandler) => {
             if (!token) {
                 return res.status(401).json({ error: 'Not possible validation token' })
             }
-            const decoded = await jwt.verify(token, MINHA_CHAVE_JWT) as JwtPayload;
+            const decoded = jwt.verify(token, MINHA_CHAVE_JWT) as JwtPayload;
             if (!decoded) {
                 return res.status(401).json({ error: 'Not possible validation token' })
             }
@@ -38,4 +38,3 @@ export const JWTvalidator = (handler: NextApiHandler) => {
 
         return handler(req, res);
     }
-}
