@@ -6,6 +6,7 @@ import { userModel } from '../../models/userModels';
 import md5 from 'md5';
 import { upload, uploadImageCosmic } from '../../services/uploadImageCosmic'
 import nc from 'next-connect'
+import { corsRules } from "../../middlewares/corsRules";
 
 const handler = nc()
     .use(upload.single('file'))
@@ -58,4 +59,4 @@ export const config = {
     }
 }
 
-export default conectMongoDB(handler);
+export default corsRules(conectMongoDB(handler));

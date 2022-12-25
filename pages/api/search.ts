@@ -3,6 +3,7 @@ import { userModel } from './../../models/userModels';
 import { conectMongoDB } from '../../middlewares/conectionDB'
 import { msgPadrao } from '../../types/msgPadrao';
 import { JWTvalidator } from '../../middlewares/validatorJWT';
+import { corsRules } from "../../middlewares/corsRules";
 
 const searchPoint = async (req: NextApiRequest, res: NextApiResponse<msgPadrao | any[]>) => {
     try {
@@ -33,4 +34,4 @@ const searchPoint = async (req: NextApiRequest, res: NextApiResponse<msgPadrao |
     }
 };
 
-export default JWTvalidator(conectMongoDB(searchPoint));
+export default corsRules(JWTvalidator(conectMongoDB(searchPoint)));

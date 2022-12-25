@@ -5,6 +5,7 @@ import { NextApiResponse } from 'next';
 import { msgPadrao } from '../../types/msgPadrao';
 import { conectMongoDB } from '../../middlewares/conectionDB';
 import { JWTvalidator } from '../../middlewares/validatorJWT';
+import { corsRules } from '../../middlewares/corsRules';
 
 const feedsUser = async (req: NextApiRequest, res: NextApiResponse<msgPadrao | any>) => {
     try {
@@ -26,4 +27,4 @@ const feedsUser = async (req: NextApiRequest, res: NextApiResponse<msgPadrao | a
     return res.status(400).json({ error: 'not possible obtain feed' })
 }
 
-export default JWTvalidator(conectMongoDB(feedsUser))
+export default corsRules(JWTvalidator(conectMongoDB(feedsUser)))
