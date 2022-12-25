@@ -6,6 +6,7 @@ import { conectMongoDB } from '../../middlewares/conectionDB';
 import { JWTvalidator } from '../../middlewares/validatorJWT';
 import nc from 'next-connect';
 import { upload, uploadImageCosmic } from '../../services/uploadImageCosmic';
+import { corsRules } from '../../middlewares/corsRules';
 
 const handler = nc()
     .use(upload.single('file'))
@@ -60,4 +61,4 @@ const handler = nc()
         }
     }
 
-export default JWTvalidator(conectMongoDB(handler));
+export default corsRules(JWTvalidator(conectMongoDB(handler)));

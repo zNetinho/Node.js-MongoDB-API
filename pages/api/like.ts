@@ -4,6 +4,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { conectMongoDB } from '../../middlewares/conectionDB'
 import { msgPadrao } from '../../types/msgPadrao';
 import { JWTvalidator } from '../../middlewares/validatorJWT';
+import { corsRules } from '../../middlewares/corsRules';
 
 const likeEndpoint = async (req: NextApiRequest, res: NextApiResponse<msgPadrao>) =>{
     try {
@@ -42,4 +43,4 @@ const likeEndpoint = async (req: NextApiRequest, res: NextApiResponse<msgPadrao>
     }
 };
 
-export default JWTvalidator(conectMongoDB(likeEndpoint));
+export default corsRules(JWTvalidator(conectMongoDB(likeEndpoint)));

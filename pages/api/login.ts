@@ -5,6 +5,7 @@ import { msgPadrao } from '../../types/msgPadrao'
 import { loginResponse } from '../../types/loginToken'
 import md5 from 'md5';
 import jwt from 'jsonwebtoken';
+import { corsRules } from '../../middlewares/corsRules';
 
 
 const login = async (
@@ -35,4 +36,4 @@ const login = async (
     } 
     return res.status(400).json({ error: 'Method not allowed' });
 }
-export default conectMongoDB(login);
+export default corsRules(conectMongoDB(login));

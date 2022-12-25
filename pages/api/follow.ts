@@ -4,6 +4,7 @@ import { msgPadrao } from "../../types/msgPadrao";
 import { JWTvalidator } from "../../middlewares/validatorJWT";
 import { conectMongoDB } from "../../middlewares/conectionDB";
 import { followingModel } from '../../models/followersModels';
+import { corsRules } from '../../middlewares/corsRules';
 
 const endpointFollow = async (req: NextApiRequest, res: NextApiResponse<msgPadrao>) => {
     try {
@@ -50,4 +51,4 @@ const endpointFollow = async (req: NextApiRequest, res: NextApiResponse<msgPadra
     }
 }
 
-export default JWTvalidator(conectMongoDB(endpointFollow));
+export default corsRules(JWTvalidator(conectMongoDB(endpointFollow)));
