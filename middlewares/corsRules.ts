@@ -5,8 +5,8 @@ import NextCors from "nextjs-cors";
 export const corsRules = (handler: NextApiHandler) => async (req: NextApiRequest, res: NextApiResponse<msgPadrao>) => {
     try {
         await NextCors(req, res, {
-            origin: '*',
             methods: ['GET', 'POST', 'PUT'],
+            origin: '*',
             optionsSuccessStatus: 200,  
         });
 
