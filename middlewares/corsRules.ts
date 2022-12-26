@@ -6,7 +6,7 @@ export const corsRules = (handler: NextApiHandler) => async (req: NextApiRequest
     try {
         await NextCors(req, res, {
             origin: '*',
-            methods: ['GET', 'POST', 'PUT', 'HEAD'],
+            methods: ['GET', 'POST', 'PUT'],
             optionsSuccessStatus: 200,  
         });
 
