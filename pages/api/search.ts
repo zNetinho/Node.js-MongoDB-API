@@ -10,12 +10,25 @@ const searchPoint = async (req: NextApiRequest, res: NextApiResponse<msgPadrao |
         if (req?.method === 'GET') {
             if (req?.query?.id) {
                 const userFind = await userModel.findById(req?.query?.id)
-                userFind.password = null;
+                // userFind.password = null;
                 if (!userFind) {
                     return res.status(400).json({ error: 'user not find' })
                 }
-                console.log(userFind)
-                return res.status(200).json(userFind)
+
+                const user = {
+                    password: null,
+                    follow: false,
+                    name: userFind.name,
+                    _id: userFind._id,
+                    email: userFind.email,
+                    avatar: userFind.avatar,
+                    followers: userFind.followers,
+                    following: userFind.following,
+                    publication: userFind.publication
+                } as any
+
+                console.log(user)
+                return res.status(200).json(user)
             } else {
                 const { nameFind } = req?.query;
                 if (!nameFind || nameFind.length < 2) {
@@ -23,6 +36,10 @@ const searchPoint = async (req: NextApiRequest, res: NextApiResponse<msgPadrao |
                 }
                 const usersFindings = await userModel.find({
                     name: { $regex: nameFind, $options: 'i' }
+                });
+
+                usersFindings.forEach(userFound => {
+                    userFound.password = null
                 })
                 return res.status(200).json(usersFindings)
             }
