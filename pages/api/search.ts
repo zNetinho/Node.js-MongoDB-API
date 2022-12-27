@@ -4,6 +4,7 @@ import { conectMongoDB } from '../../middlewares/conectionDB'
 import { msgPadrao } from '../../types/msgPadrao';
 import { JWTvalidator } from '../../middlewares/validatorJWT';
 import { corsRules } from "../../middlewares/corsRules";
+import { followingModel } from "../../models/followersModels";
 
 const searchPoint = async (req: NextApiRequest, res: NextApiResponse<msgPadrao | any[]>) => {
     try {
@@ -27,6 +28,13 @@ const searchPoint = async (req: NextApiRequest, res: NextApiResponse<msgPadrao |
                     publication: userFind.publication
                 } as any
 
+                const followUser = await followingModel.find({
+                    userId: req?.query?.userId,
+                    userFollowed: userFind._id
+                })
+                if(followUser && followUser.length > 0) {
+                    user.follow = true
+                }
                 console.log(user)
                 return res.status(200).json(user)
             } else {
