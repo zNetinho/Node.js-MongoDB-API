@@ -33,7 +33,7 @@ const feedsUser = async (
 
       const followers = await followingModel.find({ userId: userLogged._id });
       const followersId = followers.map((s) => s.userIdfolloweds);
-      console.log(userLogged)
+     
 
       const posts = await postModel
         .find({
@@ -43,15 +43,15 @@ const feedsUser = async (
 
       const result = [];
       for (const post of posts) {
-        const userPost = await postModel.findById(post.idUser);
+        const userPost = await userModel.findById(post.idUser);
         if (userPost) {
           const final = {
             ...post._doc,
             user: {
-              name: userPost?.name,
-              avatar: userPost?.avatar,
-            },
-          };
+              name: userPost.name,
+              avatar: userPost.avatar,
+            }};
+          console.log(final)
           result.push(final);
         }
       }
